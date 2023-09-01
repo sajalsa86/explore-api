@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meal db</title>
+</head>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+<style>
+
+</style>
+
+<body>
+    <header></header>
+    <main>
+        <section style="height: 120px;" id="search-container" class="d-flex align-items-center justify-content-center">
+            <input class="p-1 me-2" type="text" name="" id="search-field" placeholder="Type for items">
+            <button onclick="searchMeals()" class="btn btn-outline-success">Search</button>
+        </section>
+        <section class="container">
+            <div id="meal-container" class="row row-cols-1 row-cols-md-3 g-4">
+
+            </div>
+        </section>
+    </main>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
+    <script>
+        const getAllMeals = (searchText) => {
+            const url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${searchText}`;
+            fetch(url)
+                .then(res => res.json())
+                .then(data => displayAllMeals(data.meals))
+        }
+
+        const displayAllMeals = AllMeals => {
+            const mealContainer = document.getElementById('meal-container');
+            mealContainer.innerHTML = ''; // Use innerHTML instead of innerText
+            AllMeals.forEach(meal => {
+                const mealItem = document.createElement('div');
+                mealItem.classList.add('col');
+                mealItem.innerHTML = `
+                <div class="card">
+                    <img src="${meal.strMealThumb}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">${meal.strMeal}</h5>
+                        <p class="card-text">${'This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.'}</p>
+                    </div>
+                </div>
+            `;
+                mealContainer.appendChild(mealItem);
+            })
+        };
+
+        const searchMeals = () => {
+            const searchKeword = document.getElementById('search-field').value.trim(); // Trim whitespace
+            if (searchKeword !== '') { // Check for empty keyword
+                getAllMeals(searchKeword);
+            }
+            document.getElementById('search-field').value = ''; // Clear input field
+        };
+
+        // Load default items
+        getAllMeals('fish');
+    </script>
+
+</body>
+
+</html>

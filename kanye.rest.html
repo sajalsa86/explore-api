@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kanye</title>
+    <style>
+        .dialog-box {
+            border: 5px solid green;
+            padding: 20px;
+            background: linear-gradient(pink, azure);
+            color: darkblue;
+            width: 300px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h2>Example of kanye api using JSON</h2>
+    </header>
+    <main>
+        <section>
+            <blockquote id="container">
+
+            </blockquote>
+            <button id="kanyeBtn">Refresh for new</button>
+        </section>
+    </main>
+
+    <script>
+        const displayKanye = dialogs => {
+            //console.log(dialogs);
+            const blockContainer = document.getElementById('container');
+            blockContainer.classList.add('dialog-box');
+            blockContainer.innerHTML = dialogs.quote;
+
+        };
+        const getKanye = () => {
+            fetch('https://api.kanye.rest')
+                .then(res => res.json())
+                .then(data => displayKanye(data))
+        };
+        document.getElementById('kanyeBtn').addEventListener('click', function () {
+            getKanye();
+        })
+
+    </script>
+</body>
+
+</html>
