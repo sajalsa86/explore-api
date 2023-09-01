@@ -24,50 +24,31 @@
 
             </div>
         </section>
+
+        <!-- Modal -->
+        <div class="modal fade" id="mealsModal" tabindex="-1" aria-labelledby="mealsModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="mealsModalLabel">Modal title</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div id="modal-body" class="modal-body">
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
         crossorigin="anonymous"></script>
-    <script>
-        const getAllMeals = (searchText) => {
-            const url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${searchText}`;
-            fetch(url)
-                .then(res => res.json())
-                .then(data => displayAllMeals(data.meals))
-        }
-
-        const displayAllMeals = AllMeals => {
-            const mealContainer = document.getElementById('meal-container');
-            mealContainer.innerHTML = ''; // Use innerHTML instead of innerText
-            AllMeals.forEach(meal => {
-                const mealItem = document.createElement('div');
-                mealItem.classList.add('col');
-                mealItem.innerHTML = `
-                <div class="card">
-                    <img src="${meal.strMealThumb}" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">${meal.strMeal}</h5>
-                        <p class="card-text">${'This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.'}</p>
-                    </div>
-                </div>
-            `;
-                mealContainer.appendChild(mealItem);
-            })
-        };
-
-        const searchMeals = () => {
-            const searchKeword = document.getElementById('search-field').value.trim(); // Trim whitespace
-            if (searchKeword !== '') { // Check for empty keyword
-                getAllMeals(searchKeword);
-            }
-            document.getElementById('search-field').value = ''; // Clear input field
-        };
-
-        // Load default items
-        getAllMeals('fish');
-    </script>
+    <script src="meal-db.js"></script>
 
 </body>
 
